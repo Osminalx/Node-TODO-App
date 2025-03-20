@@ -24,7 +24,7 @@ export const createUser = async (input: unknown) => {
 				role: Role.USER,
 			},
 		});
-		console.log("new user ${user}");
+		console.log(`new user ${user}`);
 		return user.id;
 	} catch (error) {
 		console.error("Error en createUser" + error);
