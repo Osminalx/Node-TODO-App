@@ -1,8 +1,9 @@
-import express from "express";
-import { PORT } from "./config.ts";
-import userRoutes from "./Routes/userRoutes.ts";
-import cors from "cors";
 import cookieParser from "cookie-parser";
+import cors from "cors";
+import express from "express";
+import userRoutes from "./Routes/userRoutes.ts";
+import { PORT } from "./config.ts";
+import AuthRouter from "./Routes/AuthRouter.ts";
 
 const app = express();
 
@@ -15,6 +16,7 @@ app.get("/", (_req, res) => {
 });
 
 app.use("/users", userRoutes);
+app.use("/auth", AuthRouter);
 
 app.listen(PORT, () => {
 	console.log(`Server running on port ${PORT} 🚀`);

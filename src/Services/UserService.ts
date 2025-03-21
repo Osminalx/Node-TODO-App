@@ -62,3 +62,24 @@ export const login = async (input: unknown) => {
 
 	return publicUser;
 };
+
+export const updateRefreshToken = async (
+	userId: number,
+	refreshToken: string | null,
+) => {
+	try {
+		await prisma.user.update({
+			where: { id: userId },
+			data: { refreshToken: refreshToken },
+		});
+	} catch (error) {
+		console.error("Error updating the refreshToken: " + error);
+		throw new Error("Error updating the refreshToken");
+	}
+};
+
+export const getUserById = async (userId: number) => {
+	return prisma.user.findUnique({
+		where: { id: userId },
+	});
+};
