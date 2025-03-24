@@ -11,7 +11,7 @@ import { SECRET_JWT_KEY } from "../config.ts";
 export const createUserController = async (req: Request, res: Response) => {
   try {
     const user = await createUser(req.body);
-    res.status(201).json(user);
+    res.status(201).json({ user });
   } catch (error) {
     if (error instanceof Error) {
       res.status(400).send(error.message);
@@ -25,7 +25,7 @@ export const loginController = async (req: Request, res: Response) => {
   try {
     const user = await login(req.body);
     const token = jwt.sign(
-      { userId: user.id, role: user.role, email: user.email },
+      { id: user.id, role: user.role, email: user.email },
       SECRET_JWT_KEY,
       {
         expiresIn: "1h",
@@ -51,7 +51,7 @@ export const loginController = async (req: Request, res: Response) => {
         sameSite: "strict",
         maxAge: 1000 * 60 * 60 * 24 * 7,
       })
-      .send({ user, token });
+      .send({ user });
   } catch (error) {
     if (error instanceof Error) {
       res.status(401).send(error.message);
@@ -91,7 +91,7 @@ export const refreshTokenController = async (
         sameSite: "strict",
         maxAge: 1000 * 60 * 60, // 1 hora
       })
-      .json({ accessToken: newAccessToken });
+      .json({ message: "Successfully refreshed token" });
   } catch (error) {
     console.error("Error refreshing token: " + error);
     return res
