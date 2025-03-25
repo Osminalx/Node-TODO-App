@@ -6,15 +6,13 @@ const prisma = new PrismaClient();
 
 export const createTask = async (input: unknown) => {
   try {
-    console.log("Input: ", input);
-    console.log("DueDate: ", typeof input.dueDate);
     const validatedData = parse(taskSchema, input);
 
     const newTask = await prisma.task.create({
       data: {
         title: validatedData.title,
         description: validatedData.description,
-        dueDate: new Date(validatedData.dueDate).toISOString(),
+        dueDate: new Date(validatedData.dueDate).toISOString().slice(0, 16),
         userId: validatedData.userId,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -29,7 +27,7 @@ export const createTask = async (input: unknown) => {
       console.error("Unkown error: ", error);
     }
 
-    throw new Error("Could not delete task");
+    throw new Error("Could not create task");
   }
 };
 
