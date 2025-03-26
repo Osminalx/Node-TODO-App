@@ -1,18 +1,19 @@
-import { PrismaClient, Prisma } from "@prisma/client";
+import { Prisma, PrismaClient } from "@prisma/client";
 import { parse } from "valibot";
-import { taskSchema, updateTaskSchema } from "../Models/task";
+import { taskSchema, updateTaskSchema } from "../models/task.ts";
 
 const prisma = new PrismaClient();
 
 export const createTask = async (input: unknown) => {
   try {
+    console.log("Data:", input);
     const validatedData = parse(taskSchema, input);
 
     const newTask = await prisma.task.create({
       data: {
         title: validatedData.title,
         description: validatedData.description,
-        dueDate: new Date(validatedData.dueDate).toISOString().slice(0, 16),
+        dueDate: new Date(validatedData.dueDate).toISOString(),
         userId: validatedData.userId,
         createdAt: new Date(),
         updatedAt: new Date(),
