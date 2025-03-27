@@ -4,7 +4,8 @@
 	"type": "module",
 	"scripts": {
 		"dev": "bun --watch ./src/index.ts",
-		"test": "vitest"
+		"test": "vitest",
+		"test:coverage": "vitest run --coverage"
 	},
 	"private": true,
 	"devDependencies": {
