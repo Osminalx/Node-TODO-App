@@ -6,7 +6,8 @@
       "DOM"
     ],
     "types": [
-      "vitest/globals"
+      "vitest/globals",
+      "valibot"
     ],
     "target": "ESNext",
     "module": "ESNext",
