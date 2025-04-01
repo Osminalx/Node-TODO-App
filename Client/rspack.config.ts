@@ -1,5 +1,7 @@
 import { defineConfig } from "@rspack/cli";
 import { rspack } from "@rspack/core";
+import { pluginReact } from "@rsbuild/plugin-react";
+import { TanStackRouterRsPack } from "@tanstack/router-plugin/rspack";
 import * as RefreshPlugin from "@rspack/plugin-react-refresh";
 
 const isDev = process.env.NODE_ENV === "development";
@@ -53,6 +55,7 @@ export default defineConfig({
 		],
 	},
 	plugins: [
+		pluginReact(),
 		new rspack.HtmlRspackPlugin({
 			template: "./index.html",
 		}),
